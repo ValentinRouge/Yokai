@@ -3,4 +3,4 @@ public class Main {
         System.out.println("test2");
     }
 }
-COUCOU 2
+123
