@@ -1,11 +1,22 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Game {
-    public static void test(){
-        YokaiCard carte1 = new YokaiCard(Families.Rokurokubi);
-        System.out.println(carte1.getFamily());
+    private ArrayList<HintCard> listOfHintCardHidden = new ArrayList<HintCard>();
+    private ArrayList<HintCard> listOfHintCardAvailable = new ArrayList<HintCard>();
+    private ArrayList<YokaiCard> listOfYokaiCard = new ArrayList<YokaiCard>();
+    private ArrayList<Player> players = new ArrayList<Player>();
+    private boolean gameInAction;
+    private Board board;
+
+    public void BeginGame(){
+        CreatePlayers();
     }
-    public static void test2(){
-        Player name1 = new Player("Valentin");
-        System.out.println(name1.getName());
+    private void CreatePlayers(){
+        for(int i=0;i<2;i++){
+            Scanner scanner = new Scanner(System.in);
+            players.add(new Player(scanner.nextLine()));
+        }
     }
 
 }

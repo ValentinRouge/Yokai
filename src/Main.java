@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        Game.test();
-        Game.test2();
+        Game game = new Game();
+        game.BeginGame();
 
         Case.test3();
         Case.test4();
