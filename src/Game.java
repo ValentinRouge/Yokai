@@ -1,5 +1,6 @@
 public class Game {
     public static void test(){
-        System.out.println("test34");
+        YokaiCard carte1 = new YokaiCard(Families.Rokurokubi);
+        System.out.println(carte1.getFamily());
     }
 }
