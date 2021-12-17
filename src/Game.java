@@ -7,4 +7,5 @@ public class Game {
         Player name1 = new Player("Valentin");
         System.out.println(name1.getName());
     }
+
 }
