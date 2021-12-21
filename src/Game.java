@@ -37,13 +37,27 @@ public class Game {
         ArrayList<Integer> FamilyList = new ArrayList<Integer>(); //On créer une liste avec une couleur dispo
         for (int i=0; i<4; i++) FamilyList.add(i);
         for (int i=0; i<HintNeeded.get(0); i++){
-            int family = random.nextInt(FamilyList.size());
+            int family = random.nextInt(FamilyList.size()); //a chaque fois on créé une carte avec un couleur et on enlève la famille des familles dispo
             listOfHintCardHidden.add(new HintCard(Families.valueOf(FamilyList.get(family))));
             FamilyList.remove(family);
         }
 
+
+        FamilyList.clear(); //on recréer la liste avec toutes les familles
+        for (int i=0; i<4; i++) FamilyList.add(i);
+        for (int i=0; i<HintNeeded.get(2); i++){
+            ArrayList<Integer> familiesToAdd = new ArrayList<Integer>(); //On créer une liste avec les familles
+            for (int y=0; y<4; y++) familiesToAdd.add(y);
+
+            int family = random.nextInt(FamilyList.size()); //a chaque fois on créé une carte avec 3 couleur en donnant tout sauf la couleur que l'on a tirer et on enlève la famille des familles dispo
+            familiesToAdd.remove(FamilyList.get(family));
+
+            listOfHintCardHidden.add(new HintCard(Families.valueOf(familiesToAdd.get(0)), Families.valueOf(familiesToAdd.get(1)), Families.valueOf(familiesToAdd.get(2))));
+            FamilyList.remove(family);
+        }
+
         for (HintCard card : listOfHintCardHidden){
-            System.out.println(card.getFamily1());
+            System.out.println(card.getFamily1() + " " + card.getFamily2() + " " + card.getFamily3());
         }
 
 
