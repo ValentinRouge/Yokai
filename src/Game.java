@@ -1,11 +1,8 @@
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
     private ArrayList<HintCard> listOfHintCardHidden = new ArrayList<>();
     private ArrayList<HintCard> listOfHintCardAvailable = new ArrayList<>();
-    private ArrayList<YokaiCard> listOfYokaiCard = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
     private boolean gameInAction;
     private Board board;
@@ -14,6 +11,7 @@ public class Game {
         gameInAction = true;
         CreatePlayers();
         CreateHints();
+        board = new Board();
     }
 
     private void CreatePlayers(){
@@ -69,11 +67,7 @@ public class Game {
             FamilyList.remove(family);
         }
 
-        for (HintCard card : listOfHintCardHidden){
-            System.out.println(card.getFamily1() + " " + card.getFamily2() + " " + card.getFamily3());
-        }
-
-
+        Collections.shuffle(listOfHintCardHidden); //on mélange la pioche
     }
 
 }
