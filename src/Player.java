@@ -8,7 +8,4 @@ public class Player {
     public String getName() { //  getter
         return name;
     }
-
-
-
 }

@@ -9,6 +9,7 @@ public class Case {
     public HintCard getHintCard() {
         return hintCard;
     }
+
     public static void test3() {
         Case hc1 = new Case(new HintCard(Families.Kitsune));
         System.out.println(hc1.getHintCard());

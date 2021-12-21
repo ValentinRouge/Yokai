@@ -3,9 +3,6 @@ public class Main {
         Game game = new Game();
         game.BeginGame();
 
-        Case.test3();
-        Case.test4();
-
         }
 
 
