@@ -6,20 +6,28 @@ public class Game {
     private ArrayList<Player> players = new ArrayList<>();
     private boolean gameInAction;
     private Board board;
+    Scanner scanner = new Scanner(System.in);
 
     public void BeginGame(){
         gameInAction = true;
         CreatePlayers();
         CreateHints();
         board = new Board();
-    }
+        int playerNumber = -1;
+        while (gameInAction){
+            playerNumber+=1;
+            if (playerNumber>players.size()-1){
+                playerNumber=0;
+            }
+            playATurn(players.get(playerNumber));
+        }
+    } //public void BeginGame()
 
     private void CreatePlayers(){
         for(int i=0;i<2;i++){ //on créer deux utilisateurs
-            Scanner scanner = new Scanner(System.in); //UNIQUEMENT POUR LA VERSION NON GRAPHIQUE
-            players.add(new Player(scanner.nextLine()));
+            players.add(new Player(scanner.nextLine()));//TODO : IG
         }
-    }
+    } //private void CreatePlayers()
 
     private void CreateHints(){
         Random random = new Random();
@@ -68,6 +76,27 @@ public class Game {
         }
 
         Collections.shuffle(listOfHintCardHidden); //on mélange la pioche
-    }
+    } //private void CreateHints(){
+
+    private void playATurn(Player player){
+        System.out.println("C'est au tour de " + player.getName()); //TODO : IG
+        System.out.println("Soit sûr que personne ne te regarde jouer");//TODO : IG
+        board.displayBoard(); //TODO : IG
+        boolean done = false; // on créé une boucle sur le try catch pour le recommencer tant que l'on a pas réussit
+        while (!done){
+            try {
+                System.out.println("Quelles cartes veut tu regarder ?");
+                System.out.println("Format : A4&B5 : A la colonne, 4 la ligne");
+                String valueToWatch = scanner.next();
+                System.out.println(valueToWatch);
+                done = board.seeCard(valueToWatch);
+            } catch (Exception e){
+                System.out.println("Oups, quelque chose n'a pas marché, ressaie d'entrer les valeurs");
+                System.out.println(e);
+            }
+        }
+
+    } //private void playATurn(Player player)
+
 
 }
