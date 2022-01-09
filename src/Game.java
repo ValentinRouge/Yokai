@@ -1,6 +1,7 @@
 import java.util.*;
 
-public class Game {
+public class
+Game {
     private ArrayList<HintCard> listOfHintCardHidden = new ArrayList<>();
     private ArrayList<HintCard> listOfHintCardAvailable = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
