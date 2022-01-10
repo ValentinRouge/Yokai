@@ -1,4 +1,3 @@
-
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import java.awt.Graphics;
@@ -27,14 +26,13 @@ public class Scene extends JPanel {
     private final int LARGEUR_YOOKAI = 1347;  //final car constt
     private final int HAUTEUR_YOOKAI = 707;  //final car constt
 
-
     //CONSTRUCTEUR
     //creation obj de type scene avec constructeur
     public Scene() {
 
         super(); // appel aux constructeur de la super classe
         //instancier ico et img
-        this.icoBandeFond = new ImageIcon(getClass().getResource("/Image/redBackground.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
+        this.icoBandeFond = new ImageIcon(getClass().getResource("/Image/img_8.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
         this.imgBandeFond = this.icoBandeFond.getImage(); // on associe ico a imagebandefond
 
         this.icoYookai1 = new ImageIcon(getClass().getResource("/Image/imgViolet.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke

@@ -1,4 +1,3 @@
-
 import javax.swing.JFrame;
 
 public class Main {
@@ -16,7 +15,7 @@ public class Main {
 
         // caracteristiques de la fenetre :
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);     //fermer le programme en meme temps que la fenetre
-        fenetre.setSize(1500, 800);                     //dimensions de la fenetre 300 425
+        fenetre.setSize(1500, 900);                     //dimensions de la fenetre 300 425
         fenetre.setLocationRelativeTo(null);                        // on centralise la fenetre
         fenetre.setResizable(false);                                //interdir de redimessionner la fenetre
         fenetre.setAlwaysOnTop(true);                               //fenetre toujours au dessus des autres
@@ -28,13 +27,16 @@ public class Main {
 
 
         // On met cette instruction en dernier pour pas la perdre
-       // fenetre.setVisible(true);                                   //fenetre visible  ENLEVER LE COMMENTAIRE
+        fenetre.setVisible(true);                                   //fenetre visible
 
 
-        //Game game = new Game();
+       // Game game = new Game();
         //game.BeginGame();
 
     }
 
 
 }
+
+
+
