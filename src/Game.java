@@ -1,6 +1,9 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+import java.util.Random;
 
-public class Game {
+class classGame{
     private ArrayList<HintCard> listOfHintCardHidden = new ArrayList<>();
     private ArrayList<HintCard> listOfHintCardAvailable = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
@@ -96,7 +99,7 @@ public class Game {
             }
         }
 
-    } //private void playATurn(Player player)
+    } //private void playATurn(Player player);
 
 
 }
