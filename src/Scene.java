@@ -32,7 +32,7 @@ public class Scene extends JPanel {
 
         super(); // appel aux constructeur de la super classe
         //instancier ico et img
-        this.icoBandeFond = new ImageIcon(getClass().getResource("/Image/img_8.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
+        this.icoBandeFond = new ImageIcon(getClass().getResource("/Image/redBackground.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
         this.imgBandeFond = this.icoBandeFond.getImage(); // on associe ico a imagebandefond
 
         this.icoYookai1 = new ImageIcon(getClass().getResource("/Image/imgViolet.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
