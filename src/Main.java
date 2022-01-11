@@ -9,7 +9,7 @@ public class Main {
 
 
         //Creation de la fenetre
-        fenetre = new JFrame("Yookai");                         // on instencie la variable fenetre et on lui donne un nom, elle a pas encore d'existence physique
+        fenetre = new JFrame("YOKAI");                         // on instencie la variable fenetre et on lui donne un nom, elle a pas encore d'existence physique
         scene = new Scene();                                        // on instencie la scene
 
 
