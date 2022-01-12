@@ -27,11 +27,11 @@ public class Main {
 
 
         // On met cette instruction en dernier pour pas la perdre
-        fenetre.setVisible(true);                                   //fenetre visible
+        //fenetre.setVisible(true);                                   //fenetre visible
 
 
-       // Game game = new Game();
-        //game.BeginGame();
+       Game game = new Game();
+       game.BeginGame();
 
     }
 
