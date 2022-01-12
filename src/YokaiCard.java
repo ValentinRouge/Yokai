@@ -1,4 +1,6 @@
-public class YokaiCard {
+public class
+
+YokaiCard {
     private final Families family;
 
     public Families getFamily() {

@@ -17,7 +17,7 @@ public class Main {
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);     //fermer le programme en meme temps que la fenetre
         fenetre.setSize(1500, 900);                     //dimensions de la fenetre 300 425
         fenetre.setLocationRelativeTo(null);                        // on centralise la fenetre
-        fenetre.setResizable(false);                                //interdir de redimessionner la fenetre
+        fenetre.setResizable(true);                                //interdir de redimessionner la fenetre
         fenetre.setAlwaysOnTop(true);                               //fenetre toujours au dessus des autres
 
 

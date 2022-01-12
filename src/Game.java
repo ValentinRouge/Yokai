@@ -101,7 +101,7 @@ class Game {
         boolean done = false; // on créé une boucle sur le try catch pour le recommencer tant que l'on a pas réussit
         while (!done){
             try {
-                System.out.println("Quelles cartes veut tu regarder ?");
+                System.out.println("Quelles cartes veux tu regarder ?");
                 System.out.println("Format : A4&B5 : A la colonne, 4 la ligne");
                 String valueToWatch = scanner.next();
                 System.out.println(valueToWatch);
