@@ -1,5 +1,4 @@
-import javax.swing.JPanel;
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -22,6 +21,8 @@ public class Scene extends JPanel {
 
     private ImageIcon icoYokai4;//stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
     private Image imgYokai4;
+
+
 
     private final int LARGEUR_YOKAI = 1347;  //final car constt
     private final int HAUTEUR_YOKAI = 707;  //final car constt
@@ -46,6 +47,7 @@ public class Scene extends JPanel {
 
         this.icoYokai4 = new ImageIcon(getClass().getResource("/Image/imgBleu.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
         this.imgYokai4 = this.icoYokai4.getImage(); // on associe ico a imagebandefond
+
     }
 
     //METHODES

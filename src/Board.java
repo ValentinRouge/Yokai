@@ -3,11 +3,12 @@ import java.util.Collections;
 
 public class Board {
     Case[][] board = new Case[16][16];
+    ArrayList<Case> caseWithYokai = new ArrayList<>(); //est utile uniquement pour déterminer à la fin si la partie est gagnée
 
     public Board(){
         for (int i = 0; i<16; i++){
             for (int y = 0; y<16; y++){
-                board[i][y] = new Case();
+                board[i][y] = new Case(i, y);
             }
         }
 
@@ -18,17 +19,13 @@ public class Board {
             }
         }
 
-        //for (YokaiCard card : yokaiCards){
-        //    System.out.println(card.getFamily());
-        //}
-
         Collections.shuffle(yokaiCards);
 
         for (int i = 6; i<10; i++){
             for (int y = 6; y<10; y++){
                 board[i][y].setYokaiCard(yokaiCards.get(0));
-                //System.out.println(board[i][y].getYokaiCard().getFamily());
                 yokaiCards.remove(0);
+                caseWithYokai.add(board[i][y]);
             }
         }
     }
@@ -91,13 +88,49 @@ public class Board {
             int l1 = Integer.parseInt(moveSplited[0].substring(1))-1; //on récupère le nombre ensuite
             int l2 = Integer.parseInt(moveSplited[1].substring(1))-1;
 
-            board[l2][col2].setYokaiCard(board[l1][col1].getYokaiCard());
-            board[l1][col1].setYokaiCard(null);
+            if (board[l2][col2].getYokaiCard()!=null){ //on vérifie qu'il n'y ai pas déjà une carte à cet emplacement
+                System.out.println("Il y a déjà une carte ici");
+                return false;
+            } else {
+                if (board[l2+1][col2]==null && board[l2-1][col2]==null && board[l2][col2+1]==null && board[l2][col2-1]==null){ //on vérifie que la carte sois bien collée à une autre
+                    System.out.println("La carte est isolée");
+                    return false;
+                } else {
+                    board[l2][col2].setYokaiCard(board[l1][col1].getYokaiCard());
+                    board[l1][col1].setYokaiCard(null);
 
-            return true;
+                    caseWithYokai.remove(board[l1][col1]);// on maintient la liste à jour pour la vérification finale
+                    caseWithYokai.add(board[l2][col2]);
+
+                    return true;
+                }
+            }
         } catch (Exception e) {
             System.out.println(e);
             return false;
         }
-    }
+    } //public boolean makeAMove(String move){
+
+    public boolean checkIfWon(){
+        ArrayList<Integer> FamilyList = new ArrayList<Integer>(); //On créer une liste avec une couleur dispo
+        for (int i=0; i<4; i++) FamilyList.add(i);
+        ArrayList<Integer> familiesGrupped = new ArrayList<>();
+        ArrayList<Integer> familiesNotGrupped = new ArrayList<>();
+        int[] PossiblesMoves = {0, 1, 0, -1, 1, 0, -1, 0};
+
+        while (true){
+            for (int i = 0; i<16; i++){
+                Case thisCase = caseWithYokai.get(i);
+                if (!familiesGrupped.contains(thisCase.getYokaiCard().getFamily().getValue()) && !familiesNotGrupped.contains(thisCase.getYokaiCard().getFamily().getValue())) {
+                    for (int a = 0; a<8; a=a+2){
+                        if (board[thisCase.getLine()+PossiblesMoves[a]][thisCase.getCol()+PossiblesMoves[a+1]].getYokaiCard().getFamily().getValue() == thisCase.getYokaiCard().getFamily().getValue()){
+
+                        }
+                        return true;
+                    }
+
+                }
+            }
+        }
+    } //public boolean checkIfWon(){
 }
