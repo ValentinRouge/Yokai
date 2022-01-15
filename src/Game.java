@@ -2,18 +2,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 class Game {
     private ArrayList<HintCard> listOfHintCardHidden = new ArrayList<>();
     private ArrayList<HintCard> listOfHintCardAvailable = new ArrayList<>();
-    private ArrayList<Player> players = new ArrayList<>();
+    public ArrayList<Player> players = new ArrayList<>();
     private boolean gameInAction;
     private Board board;
     Scanner scanner = new Scanner(System.in);
 
-    public void BeginGame(){
+    public void BeginGame() {
         gameInAction = true;
-        CreatePlayers();
+        PlayerInterface playerInterface = new PlayerInterface(this); // on créer une interface d'entrée de joueeurs
+    }
+
+    public void continueGame(){
+        System.out.println(players.get(0).getName());
+        System.out.println(players.get(1).getName());
         CreateHints();
         board = new Board();
         int playerNumber = -1;
@@ -27,9 +33,9 @@ class Game {
     } //public void BeginGame()
 
 
-    private void CreatePlayers(){
+    private void CreatePlayers(ArrayList<String> names){
         for(int i=0;i<2;i++){ //on créer deux utilisateurs
-            players.add(new Player(scanner.nextLine()));//TODO : IG
+            players.add(new Player(names.get(i)));
         }
     } //private void CreatePlayers()
 

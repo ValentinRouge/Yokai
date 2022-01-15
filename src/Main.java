@@ -9,22 +9,22 @@ public class Main {
 
 
         //Creation de la fenetre
-        fenetre = new JFrame("YOKAI");                         // on instencie la variable fenetre et on lui donne un nom, elle a pas encore d'existence physique
-        scene = new Scene();                                        // on instencie la scene
+        //fenetre = new JFrame("YOKAI");                         // on instencie la variable fenetre et on lui donne un nom, elle a pas encore d'existence physique
+        //scene = new Scene();                                        // on instencie la scene
 
-        JPanel panel = new JPanel();
-        JTextField nameField = new JTextField("...", 2);
+        //JPanel panel = new JPanel();
+        //JTextField nameField = new JTextField("...", 2);
 
-        fenetre.add(scene);
-        scene.add(nameField);
-        fenetre.setSize(600,400);
+        //fenetre.add(scene);
+        //scene.add(nameField);
+        //fenetre.setSize(600,400);
 
 
 
         // caracteristiques de la fenetre :
-        fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);     //fermer le programme en meme temps que la fenetre
+        //fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);     //fermer le programme en meme temps que la fenetre
         //fenetre.setSize(1500, 900);                     //dimensions de la fenetre 300 425
-        fenetre.setLocationRelativeTo(null);                        // on centralise la fenetre
+        //fenetre.setLocationRelativeTo(null);                        // on centralise la fenetre
         //fenetre.setResizable(false);                                //interdir de redimessionner la fenetre
         //fenetre.setAlwaysOnTop(true);                               //fenetre toujours au dessus des autres
 
@@ -35,11 +35,11 @@ public class Main {
 
 
         // On met cette instruction en dernier pour pas la perdre
-        fenetre.setVisible(true);                                   //fenetre visible
+        //fenetre.setVisible(true);                                   //fenetre visible
 
 
-       //Game game = new Game();
-       //game.BeginGame();
+       Game game = new Game();
+       game.BeginGame();
 
     }
 
