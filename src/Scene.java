@@ -10,17 +10,9 @@ public class Scene extends JPanel {
     private ImageIcon icoBandeFond;//stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
     private Image imgBandeFond;
 
-    private ImageIcon icoYokai1;//stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
-    private Image imgYokai1;
+    private ImageIcon icoDosIndice;//stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
+    private Image imgDosIndice;
 
-    private ImageIcon icoYokai2;//stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
-    private Image imgYokai2;
-
-    private ImageIcon icoYokai3;//stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
-    private Image imgYokai3;
-
-    private ImageIcon icoYokai4;//stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
-    private Image imgYokai4;
 
 
 
@@ -36,26 +28,35 @@ public class Scene extends JPanel {
         this.icoBandeFond = new ImageIcon(getClass().getResource("/Image/redBackground.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
         this.imgBandeFond = this.icoBandeFond.getImage(); // on associe ico a imagebandefond
 
-        this.icoYokai1 = new ImageIcon(getClass().getResource("/Image/imgViolet.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
-        this.imgYokai1 = this.icoYokai1.getImage(); // on associe ico a imagebandefond
+        this.icoDosIndice = new ImageIcon(getClass().getResource("/Image/img_1.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
+        this.imgDosIndice = this.icoDosIndice.getImage(); // on associe ico a imagebandefond
 
-        this.icoYokai2 = new ImageIcon(getClass().getResource("/Image/imgRouge.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
-        this.imgYokai2 = this.icoYokai2.getImage(); // on associe ico a imagebandefond
-
-        this.icoYokai3 = new ImageIcon(getClass().getResource("/Image/imgVert.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
-        this.imgYokai3 = this.icoYokai3.getImage(); // on associe ico a imagebandefond
-
-        this.icoYokai4 = new ImageIcon(getClass().getResource("/Image/imgBleu.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
-        this.imgYokai4 = this.icoYokai4.getImage(); // on associe ico a imagebandefond
 
     }
 
     //METHODES
     public void paintComponent(Graphics g){
         g.drawImage(this.imgBandeFond, 0, 0, null);
-        g.drawImage(this.imgYokai1, this.LARGEUR_YOKAI, 0, null);
-        g.drawImage(this.imgYokai2, 0, 0, null);
-        g.drawImage(this.imgYokai3, this.LARGEUR_YOKAI, this.HAUTEUR_YOKAI, null);
-        g.drawImage(this.imgYokai4, 0, this.HAUTEUR_YOKAI, null);
+        g.drawImage(this.imgDosIndice, 150, 150, null);
+
+
+
+
+
+       // for (int i=1; i<nAlibiFC;i++){
+            //if(nAlibiFC !=0){
+            //    g.drawImage(this.imgDosIndice,1000+20*i,20*i,null);
+        //    }
+       // }
+       // if (nAlibiFC <8){
+          //  if(idJack==true){
+             //   g.drawImage(tabShuffleAlibi[nAlibi].getImgAlibi(),1140,200,null);
+            //}
+        //}
+
+                //comment s'eppel notre liste de carte mélangée
+           //     variable qui compte le nombre de carte face cahee
+             //   n alibi le  numero de la derniere carte
+
     }
 }

@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -7,15 +8,23 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PlayerInterface extends JFrame{
+
     static JFrame fenetre;                                    // on declare la fenetre de jeu
     static Scene scene;
     public ArrayList<String> names = new ArrayList<>(); //la ou l'on stocke les
     boolean ended = false;
     Game g;
+    // CA private ImageIcon icoBandeFondAccueil;//stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
+    // CA private Image imgBandeFondAccueil;
 
     public PlayerInterface(Game g){
         fenetre = new JFrame("Choix des noms");                         // on instencie la variable fenetre et on lui donne un nom, elle a pas encore d'existence physique
         this.g = g;
+
+        // CA super(); // appel au constructeur de la super classe
+        // CA instancier ico et img
+       // CA this.icoBandeFondAccueil = new ImageIcon(getClass().getResource("/Image/redBackground.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
+       //  CA this.imgBandeFondAccueil = this.icoBandeFondAccueil.getImage(); // on associe ico a imagebandefond
 
         JPanel panel = new JPanel();
         final JTextField name1Field = new JTextField("", 10);
@@ -40,13 +49,13 @@ public class PlayerInterface extends JFrame{
         panel.add(nameButton);
 
         // caracteristiques de la fenetre :
-        fenetre.setSize(300,150);
+        fenetre.setSize(1500,900);
         fenetre.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);     //fermer le programme en meme temps que la fenetre
         fenetre.setLocationRelativeTo(null);                        // on centralise la fenetre
         fenetre.setVisible(true);                                   //fenetre visible
 
         nameButton.addActionListener(new ActionListener() {
-            @Override
+
             public void actionPerformed(ActionEvent e) {
                 g.players.add(new Player(name1Field.getText()));
                 g.players.add(new Player(name2Field.getText()));
@@ -59,4 +68,10 @@ public class PlayerInterface extends JFrame{
     private void closeWindow(){
         fenetre.dispatchEvent(new WindowEvent(fenetre, WindowEvent.WINDOW_CLOSING));
     }
+
+
+
+   // CA public void paintComponent(Graphics g) {
+    // CA g.drawImage(this.imgBandeFondAccueil, 0, 0, null);
+    //}
 }
