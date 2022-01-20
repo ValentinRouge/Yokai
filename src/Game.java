@@ -12,10 +12,11 @@ class Game {
     private boolean gameInAction;
     private Board board;
     Scanner scanner = new Scanner(System.in);
+    PlayerInterface playerInterface;
 
     public void BeginGame() {
         gameInAction = true;
-        PlayerInterface playerInterface = new PlayerInterface(this); // on créer une interface d'entrée de joueeurs
+        playerInterface = new PlayerInterface(this); // on créer une interface d'entrée de joueeurs
     }
 
     public void continueGame(){
@@ -23,7 +24,8 @@ class Game {
         System.out.println(players.get(1).getName());
         CreateHints();
         board = new Board();
-        GameInterface.createInterface(this);
+        GameInterface gameInterface = new GameInterface();
+        gameInterface.createInterface(this);
         int playerNumber = -1;
         while (gameInAction){
             playerNumber+=1;

@@ -10,9 +10,7 @@ import java.util.ArrayList;
 public class PlayerInterface extends JFrame{
 
     static JFrame fenetre;                                    // on declare la fenetre de jeu
-    static Scene scene;
-    public ArrayList<String> names = new ArrayList<>(); //la ou l'on stocke les
-    boolean ended = false;
+
     Game g;
     // CA private ImageIcon icoBandeFondAccueil; //stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
     // CA private Image imgBandeFondAccueil;
@@ -25,7 +23,7 @@ public class PlayerInterface extends JFrame{
 
         JPanelWithBackground panel = null;
         try {
-            panel = new JPanelWithBackground("./src/redBackground.png");
+            panel = new JPanelWithBackground("./src/Image/redBackground.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,9 +86,6 @@ public class PlayerInterface extends JFrame{
     private void closeWindow(){
         fenetre.dispatchEvent(new WindowEvent(fenetre, WindowEvent.WINDOW_CLOSING));
     }
-
-
-
    // CA public void paintComponent(Graphics g) {
     // CA g.drawImage(this.imgBandeFondAccueil, 0, 0, null);
     //}
