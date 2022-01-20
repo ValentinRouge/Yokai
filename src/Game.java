@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -22,6 +23,7 @@ class Game {
         System.out.println(players.get(1).getName());
         CreateHints();
         board = new Board();
+        GameInterface.createInterface(this);
         int playerNumber = -1;
         while (gameInAction){
             playerNumber+=1;

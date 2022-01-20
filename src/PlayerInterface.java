@@ -3,9 +3,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class PlayerInterface extends JFrame{
 
@@ -14,42 +14,62 @@ public class PlayerInterface extends JFrame{
     public ArrayList<String> names = new ArrayList<>(); //la ou l'on stocke les
     boolean ended = false;
     Game g;
-    // CA private ImageIcon icoBandeFondAccueil;//stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
+    // CA private ImageIcon icoBandeFondAccueil; //stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
     // CA private Image imgBandeFondAccueil;
 
-    public PlayerInterface(Game g){
+    public PlayerInterface(Game g) {
+
         fenetre = new JFrame("Choix des noms");                         // on instencie la variable fenetre et on lui donne un nom, elle a pas encore d'existence physique
         this.g = g;
 
-        // CA super(); // appel au constructeur de la super classe
-        // CA instancier ico et img
-       // CA this.icoBandeFondAccueil = new ImageIcon(getClass().getResource("/Image/redBackground.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
-       //  CA this.imgBandeFondAccueil = this.icoBandeFondAccueil.getImage(); // on associe ico a imagebandefond
 
-        JPanel panel = new JPanel();
+        JPanelWithBackground panel = null;
+        try {
+            panel = new JPanelWithBackground("./src/redBackground.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         final JTextField name1Field = new JTextField("", 10);
         final JTextField name2Field = new JTextField("", 10);
 
         //on créer les éléments de la fenêtre
+        final JLabel titleLabel = new JLabel("Bienvenue au jeu de Yokai");
+        Font titleFont = titleLabel.getFont().deriveFont(Font.BOLD,20);
+        titleLabel.setFont(titleFont);
+        titleLabel.setForeground(Color.white);
+
+        final JLabel dscLabel = new JLabel("<html>Ce jeu vous est proposé par le groupe composé de : Chloé Pezzoni, Victor Genin et Valentin Rouge <br/><br/>Ce projet a été réalisé dans le cadre du cours de Java au sein de l'ISEP.<br/>Nous espérons que vous prendrez plaisir à jouer :).<br/></html>");
+        dscLabel.setForeground(Color.white);
+
         final JLabel name1Label = new JLabel();
         final JLabel name2Label = new JLabel();
         name1Label.setText("Nom du joueur 1 : ");
         name2Label.setText("Nom du joueur 2 : ");
+        name1Label.setForeground(Color.white);
+        name2Label.setForeground(Color.white);
+
         JButton nameButton = new JButton();
         nameButton.setText("Créer les joueurs");
 
         //on ajoute le panel
         fenetre.add(panel);
 
+        //on crée un GridBaglayout pour gérer la mise en page de la page
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+
         //on ajoute tous les éléments dans la panel
+        panel.add(titleLabel, gbc);
+        panel.add(dscLabel, gbc);
         panel.add(name1Label);
-        panel.add(name1Field);
+        panel.add(name1Field, gbc);
         panel.add(name2Label);
-        panel.add(name2Field);
-        panel.add(nameButton);
+        panel.add(name2Field, gbc);
+        panel.add(nameButton, gbc);
 
         // caracteristiques de la fenetre :
-        fenetre.setSize(1500,900);
+        fenetre.setSize(1000,500);
         fenetre.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);     //fermer le programme en meme temps que la fenetre
         fenetre.setLocationRelativeTo(null);                        // on centralise la fenetre
         fenetre.setVisible(true);                                   //fenetre visible
