@@ -9,22 +9,24 @@ import java.util.ArrayList;
 
 public class PlayerInterface extends JFrame{
 
-    static JFrame fenetre;                                    // on declare la fenetre de jeu
+    JFrame fenetre;
+    JPanelWithBackground panel;// on declare la fenetre de jeu
+    JPanel panel2;
 
     Game g;
     // CA private ImageIcon icoBandeFondAccueil; //stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
     // CA private Image imgBandeFondAccueil;
 
     public PlayerInterface(Game g) {
+        super();
 
-        fenetre = new JFrame("Choix des noms");                         // on instencie la variable fenetre et on lui donne un nom, elle a pas encore d'existence physique
+        fenetre = this;                       // on instencie la variable fenetre et on lui donne un nom, elle a pas encore d'existence physique
         this.g = g;
 
 
-        JPanelWithBackground panel = null;
         try {
             panel = new JPanelWithBackground("./src/Image/redBackground.png");
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         final JTextField name1Field = new JTextField("", 10);
@@ -70,8 +72,8 @@ public class PlayerInterface extends JFrame{
         fenetre.setSize(1000,500);
         fenetre.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);     //fermer le programme en meme temps que la fenetre
         fenetre.setLocationRelativeTo(null);                        // on centralise la fenetre
-        fenetre.setVisible(true);                                   //fenetre visible
 
+        fenetre.setVisible(true);
         nameButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -84,7 +86,7 @@ public class PlayerInterface extends JFrame{
     }
 
     private void closeWindow(){
-        fenetre.dispatchEvent(new WindowEvent(fenetre, WindowEvent.WINDOW_CLOSING));
+        this.setVisible(false);
     }
    // CA public void paintComponent(Graphics g) {
     // CA g.drawImage(this.imgBandeFondAccueil, 0, 0, null);

@@ -14,6 +14,8 @@ class Game {
     Scanner scanner = new Scanner(System.in);
     PlayerInterface playerInterface;
 
+
+
     public void BeginGame() {
         gameInAction = true;
         playerInterface = new PlayerInterface(this); // on créer une interface d'entrée de joueeurs
@@ -25,8 +27,9 @@ class Game {
         CreateHints();
         board = new Board();
         GameInterface gameInterface = new GameInterface();
-        gameInterface.createInterface(this);
+
         int playerNumber = -1;
+        gameInAction=false;
         while (gameInAction){
             playerNumber+=1;
             if (playerNumber>players.size()-1){
