@@ -43,20 +43,20 @@ public class Scene extends JPanel {
 
 
 
-       // for (int i=1; i<nAlibiFC;i++){
-            //if(nAlibiFC !=0){
-            //    g.drawImage(this.imgDosIndice,1000+20*i,20*i,null);
+        // for (int i=1; i<nAlibiFC;i++){
+        //if(nAlibiFC !=0){
+        //    g.drawImage(this.imgDosIndice,1000+20*i,20*i,null);
         //    }
-       // }
-       // if (nAlibiFC <8){
-          //  if(idJack==true){
-             //   g.drawImage(tabShuffleAlibi[nAlibi].getImgAlibi(),1140,200,null);
-            //}
+        // }
+        // if (nAlibiFC <8){
+        //  if(idJack==true){
+        //   g.drawImage(tabShuffleAlibi[nAlibi].getImgAlibi(),1140,200,null);
+        //}
         //}
 
-                //comment s'eppel notre liste de carte mélangée
-           //     variable qui compte le nombre de carte face cahee
-             //   n alibi le  numero de la derniere carte
+        //comment s'eppel notre liste de carte mélangée
+        //     variable qui compte le nombre de carte face cahee
+        //   n alibi le  numero de la derniere carte
 
     }
 }

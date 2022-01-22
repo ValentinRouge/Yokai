@@ -7,10 +7,12 @@ import java.io.IOException;
 public class GameInterface extends JFrame{
 
     static JFrame fenetre;
-    public static Scene scene;                                       //panneau nouvelle variable, classe Scene
+   // public static Scene scene;                                       //panneau nouvelle variable, classe Scene
     Game ga;
     JPanelWithBackground panel;
-
+    JPanelWithBackground dosIndice;
+    // CA private ImageIcon icoDosIndice;//stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
+    //CA private Image imgDosIndice;
 
     public GameInterface (){
         super();
@@ -23,11 +25,16 @@ public class GameInterface extends JFrame{
         fenetre.setResizable(true);                                //interdir de redimessionner la fenetre
         fenetre.setAlwaysOnTop(false);//fenetrenetre toujours au dessus des autres
 
+
+
         try {
             panel = new JPanelWithBackground("./src/Image/redBackGround.png");
+
         } catch (Exception e) {
-            e.printStackTrace();
+           e.printStackTrace();
         }
+
+
         panel.setLayout(new GridBagLayout());
 
         JTable table = new JTable(17,17);
@@ -36,7 +43,7 @@ public class GameInterface extends JFrame{
             table.getColumnModel().getColumn(i).setMinWidth(35);
         }
         table.setShowGrid(true);
-        table.setGridColor(Color.GRAY);
+        table.setGridColor(Color.BLACK);
 
         String[] Alphabet = {"A", "B", "C", "D", "E", "F", "G", "H","I","J","K","L","M","O","P","Q"};
         for (int i=1; i<17; i++){
@@ -55,8 +62,18 @@ public class GameInterface extends JFrame{
         panel.add(table);
 
         fenetre.setVisible(true);                                   //fenetre visible
+
+
+        //instancier ico et img
+
+        // CA this.icoDosIndice = new ImageIcon(getClass().getResource("./Image/img_1.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
+        // CA this.imgDosIndice = this.icoDosIndice.getImage(); // on associe ico a imagebandefond
+
     }
 
+    // CA public void paintComponent(Graphics g) {
+    // CA    g.drawImage(this.imgDosIndice, 200, 400, null);
+   // }
     public void createInterface(Game ga){
 
     }
