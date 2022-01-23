@@ -1,3 +1,5 @@
+package yokai;
+
 import yokai.global.Game;
 
 public class Main {
