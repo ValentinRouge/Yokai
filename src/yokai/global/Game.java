@@ -7,6 +7,15 @@ import yokai.objects.Families;
 import yokai.objects.HintCard;
 import yokai.objects.Player;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -24,6 +33,7 @@ public class Game {
 
 
     public void BeginGame() {
+        playSound();
         gameInAction = true;
         playerInterface = new PlayerInterface(this); // on créer une interface d'entrée de joueeurs
     }
@@ -232,5 +242,18 @@ public class Game {
                 System.out.println(e);
             }
         }
+    } //private void makeAMove(){
+
+    private void playSound(){
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./src/sound/music.wav").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 } //class yokai.global.Game
