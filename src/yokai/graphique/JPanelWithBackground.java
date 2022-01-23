@@ -1,4 +1,4 @@
-package Interface;
+package yokai.graphique;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -1,7 +1,7 @@
-package Interface;
+package yokai.graphique;
 
-import Interface.JPanelWithBackground;
-import Objects.Player;
+import yokai.objects.Player;
+import yokai.global.Game;
 
 import javax.swing.*;
 import java.awt.*;

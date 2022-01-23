@@ -1,18 +1,18 @@
-package global;
+package yokai.global;
 
-import Interface.GameInterface;
-import Interface.PlayerInterface;
-import Objects.Board;
-import Objects.Families;
-import Objects.HintCard;
-import Objects.Player;
+import yokai.graphique.GameInterface;
+import yokai.graphique.PlayerInterface;
+import yokai.objects.Board;
+import yokai.objects.Families;
+import yokai.objects.HintCard;
+import yokai.objects.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.Random;
 
-class Game {
+public class Game {
     private ArrayList<HintCard> listOfHintCardHidden = new ArrayList<>();
     private ArrayList<HintCard> listOfHintCardAvailable = new ArrayList<>();
     public ArrayList<Player> players = new ArrayList<>();
@@ -233,4 +233,4 @@ class Game {
             }
         }
     }
-} //class global.Game
+} //class yokai.global.Game

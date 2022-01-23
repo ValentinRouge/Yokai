@@ -1,4 +1,4 @@
-package Objects;
+package yokai.objects;
 
 public class Case {
 

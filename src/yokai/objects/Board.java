@@ -1,4 +1,4 @@
-package Objects;
+package yokai.objects;
 
 import java.util.ArrayList;
 import java.util.Collections;

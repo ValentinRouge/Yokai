@@ -1,6 +1,4 @@
-package Objects;
-
-import Objects.Families;
+package yokai.objects;
 
 public class
 

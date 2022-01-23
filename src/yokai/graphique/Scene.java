@@ -1,4 +1,4 @@
-package Interface;
+package yokai.graphique;
 
 import javax.swing.*;
 import java.awt.Graphics;
@@ -27,10 +27,10 @@ public class Scene extends JPanel {
 
         super(); // appel aux constructeur de la super classe
         //instancier ico et img
-        this.icoBandeFond = new ImageIcon(getClass().getResource("./Image/redBackground.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
+        this.icoBandeFond = new ImageIcon(getClass().getResource("./image/redBackground.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
         this.imgBandeFond = this.icoBandeFond.getImage(); // on associe ico a imagebandefond
 
-        this.icoDosIndice = new ImageIcon(getClass().getResource("./Image/img_1.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
+        this.icoDosIndice = new ImageIcon(getClass().getResource("./image/img_1.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
         this.imgDosIndice = this.icoDosIndice.getImage(); // on associe ico a imagebandefond
 
 

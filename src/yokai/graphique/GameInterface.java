@@ -1,12 +1,9 @@
-package Interface;
+package yokai.graphique;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import global.Game;
+
+import yokai.global.Game;
 
 public class GameInterface extends JFrame{
 

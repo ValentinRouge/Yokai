@@ -1,4 +1,4 @@
-package Objects;
+package yokai.objects;
 
 public class Player {
     private final String name; // on declare un attribut
