@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Board {
-    Case[][] board = new Case[16][16];
+    public Case[][] board = new Case[16][16];
     ArrayList<Case> caseWithYokai = new ArrayList<>(); //est utile uniquement pour déterminer à la fin si la partie est gagnée
 
     public Board(){

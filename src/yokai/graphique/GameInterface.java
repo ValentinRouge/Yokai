@@ -4,19 +4,28 @@ import javax.swing.*;
 import java.awt.*;
 
 import yokai.global.Game;
+import yokai.objects.Board;
 
 public class GameInterface extends JFrame{
 
     static JFrame fenetre;
    // public static Interface.Scene scene;                                       //panneau nouvelle variable, classe Interface.Scene
     Game ga;
-    JPanelWithBackground panel;
-    JPanelWithBackground dosIndice;
+    JPanelWithBackground topPanel;
+    JPanelWithBackground gridPanel;
+    JPanelWithBackground borderPanel;
+    int minHeightBoard;
+    int maxHeightBoard;
+    int minWidthBoard;
+    int mawWidthBoard;
+
+
     // CA private ImageIcon icoDosIndice;//stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
     //CA private Image imgDosIndice;
 
-    public GameInterface (){
+    public GameInterface (Game ga){
         super();
+        this.ga = ga;
         fenetre = this;                      // on instencie la variable fenetre et on lui donne un nom, elle a pas encore d'existence physique
 
         fenetre.setTitle("Jeu du YOKAI");
@@ -26,87 +35,107 @@ public class GameInterface extends JFrame{
         fenetre.setResizable(true);                                //interdir de redimessionner la fenetre
         fenetre.setAlwaysOnTop(false);//fenetrenetre toujours au dessus des autres
 
-
-
         try {
-            panel = new JPanelWithBackground("./src/Image/redBackGround.png");
-
+            borderPanel = new JPanelWithBackground("./src/Image/redBackGround.png");
+            topPanel = new JPanelWithBackground("./src/Image/redBackGround.png");
+            gridPanel = new JPanelWithBackground("./src/Image/redBackGround.png");
         } catch (Exception e) {
            e.printStackTrace();
         }
 
+        borderPanel.setLayout(new BorderLayout()); // on créer un panel avec un layout border
+        fenetre.add(borderPanel);
 
-        panel.setLayout(new GridBagLayout());
-
-        JTable table = new JTable(17,17);
-        table.setRowHeight(35);
-        for(int i = 0; i<table.getColumnCount(); i++){
-            table.getColumnModel().getColumn(i).setMinWidth(35);
-        }
-        table.setShowGrid(true);
-        table.setGridColor(Color.BLACK);
-
-        String[] Alphabet = {"A", "B", "C", "D", "E", "F", "G", "H","I","J","K","L","M","O","P","Q"};
-        for (int i=1; i<17; i++){
-            table.getModel().setValueAt(Alphabet[i-1],0,i);
-            table.getModel().setValueAt(i,i,0);
-        }
-
-        try {
-            table.getModel().setValueAt(new ImageIcon("./src/Image/img.png"),3,3);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        borderPanel.add(gridPanel, BorderLayout.CENTER);
+        borderPanel.add(topPanel, BorderLayout.NORTH);
 
         JLabel text = new JLabel();
         text.setText("coucou");
-
-        JPanel borderPanel = new JPanel();
-        borderPanel.setLayout(new BorderLayout());
-
-        fenetre.add(borderPanel);
-
-        borderPanel.add(panel, BorderLayout.CENTER);
-        borderPanel.add(text, BorderLayout.NORTH);
-
-        //panel.add(text);
-
-        GridLayout gridLayout = new GridLayout(3,3,1,1);
-        panel.setLayout(gridLayout);
-
-        for (int i=0; i<3*3; i++){
-            JLabel j1 = new JLabel();
-            panel.add(j1);
-            System.out.println(j1.getWidth());
-            j1.setIcon(new ImageIcon("./src/Image/img_1.png"));
-            j1.setHorizontalAlignment(JLabel.CENTER);
-            j1.setVerticalAlignment(JLabel.CENTER);
-            System.out.println(j1.getWidth());
-
-        }
-        panel.setPreferredSize(new Dimension(100,100));
-
-        //panel.add(table);
+        topPanel.add(text);
 
         fenetre.setVisible(true);                                   //fenetre visible
 
 
-        //instancier ico et img
+        displayBoard();
+    } //public GameInterface (Game ga){
 
-        // CA this.icoDosIndice = new ImageIcon(getClass().getResource("./Image/img_1.png"));// on instancie img et ico, on associe a la variable ico a l'image qui est stocke
-        // CA this.imgDosIndice = this.icoDosIndice.getImage(); // on associe ico a imagebandefond
+    private void displayBoard(){
+        determineBoardDimension();
+
+        int height = maxHeightBoard-minHeightBoard+1;
+        int width = mawWidthBoard-minWidthBoard+1;
+
+        gridPanel.removeAll();
+        GridBagLayout gridLayout = new GridBagLayout();
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridPanel.setLayout(gridLayout);
+
+        gridBagConstraints.weightx = width;
+        gridBagConstraints.weighty = height;
+
+        String[] Alphabet = {"A", "B", "C", "D", "E", "F", "G", "H","I","J","K","L","M","O","P","Q"};
+        for (int i=1; i<width; i++){
+            JLabel j1 = new JLabel();
+            j1.setForeground(Color.white);
+            gridBagConstraints.gridy=0;
+            gridBagConstraints.gridx = i;
+            gridPanel.add(j1, gridBagConstraints);
+            j1.setText(Alphabet[minWidthBoard+i]);
+            j1.setHorizontalAlignment(JLabel.CENTER);
+            j1.setVerticalAlignment(JLabel.CENTER);
+        }
+
+        for (int l=1; l<height; l++){
+            for (int i=0; i<width; i++){
+                JLabel j1 = new JLabel();
+                gridBagConstraints.gridy = l;
+                gridBagConstraints.gridx = i;
+                gridPanel.add(j1,gridBagConstraints);
+                if (i%height==0){
+                    j1.setText(String.valueOf(minHeightBoard+Math.round(i/width)+2));
+                    j1.setForeground(Color.white);
+                } else {
+                    j1.setIcon(new ImageIcon("./src/Image/img_1.png"));
+                }
+                j1.setHorizontalAlignment(JLabel.CENTER);
+                j1.setVerticalAlignment(JLabel.CENTER);
+            }
+        }
 
     }
 
-    // CA public void paintComponent(Graphics g) {
-    // CA    g.drawImage(this.imgDosIndice, 200, 400, null);
-   // }
-    public void createInterface(Game ga){
+    private void determineBoardDimension(){
+        minHeightBoard=0;
+        maxHeightBoard=0;
+        minWidthBoard=0;
+        mawWidthBoard=0;
+        Board board = ga.getBoard();
 
-    }
+        for (int i=0; i<16; i++){
+            boolean hasCard = false;
+            for (int l=0; l<16; l++){
+                if (board.board[i][l].getYokaiCard()!= null) hasCard=true;
+            }
+            if (hasCard) {
+                maxHeightBoard = i;
+            } else if (minHeightBoard == i-1){
+                minHeightBoard = i;
+            }
+        }
 
-    public void updateBoard(){
+        for (int i=0; i<16; i++){
+            boolean hasCard = false;
+            for (int l=0; l<16; l++){
+                if (board.board[l][i].getYokaiCard()!= null) hasCard=true;
+            }
+            if (hasCard) {
+                mawWidthBoard = i;
+            } else if (minWidthBoard == i-1){
+                minWidthBoard = i;
+            }
+        }
+    } //private void determineBoardDimension(){
 
-    }
+
 
 };

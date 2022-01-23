@@ -11,8 +11,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +28,9 @@ public class Game {
     Scanner scanner = new Scanner(System.in);
     PlayerInterface playerInterface;
 
-
+    public Board getBoard() {
+        return board;
+    }
 
     public void BeginGame() {
         playSound();
@@ -43,7 +43,7 @@ public class Game {
         System.out.println(players.get(1).getName());
         CreateHints();
         board = new Board();
-        GameInterface gameInterface = new GameInterface();
+        GameInterface gameInterface = new GameInterface(this);
 
         int playerNumber = -1;
         gameInAction=false;
