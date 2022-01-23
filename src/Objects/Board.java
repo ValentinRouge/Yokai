@@ -1,3 +1,5 @@
+package Objects;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -78,7 +80,7 @@ public class Board {
             return false;
         }
 
-    } //public boolean placeHint(HintCard hintCard, String place){
+    } //public boolean placeHint(Objects.HintCard hintCard, String place){
 
     public boolean makeAMove(String move){
         try {

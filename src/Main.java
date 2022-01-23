@@ -1,4 +1,4 @@
-import javax.swing.*;
+import global.Game;
 
 public class Main {
 

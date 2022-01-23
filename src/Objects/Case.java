@@ -1,3 +1,5 @@
+package Objects;
+
 public class Case {
 
     private HintCard hintCard;

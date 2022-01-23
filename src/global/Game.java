@@ -1,9 +1,16 @@
-import java.io.IOException;
+package global;
+
+import Interface.GameInterface;
+import Interface.PlayerInterface;
+import Objects.Board;
+import Objects.Families;
+import Objects.HintCard;
+import Objects.Player;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 class Game {
     private ArrayList<HintCard> listOfHintCardHidden = new ArrayList<>();
@@ -133,7 +140,7 @@ class Game {
         }
         makeAMove();
         board.displayBoard();
-    } //private void playATurn(Player player);
+    } //private void playATurn(Objects.Player player);
 
     private void pick(){
         listOfHintCardAvailable.add(listOfHintCardHidden.get(0)); //Piocher
@@ -226,4 +233,4 @@ class Game {
             }
         }
     }
-} //class Game
+} //class global.Game

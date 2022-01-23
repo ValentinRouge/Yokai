@@ -1,26 +1,29 @@
+package Objects;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public enum NumberHintCard {
-    oneColor(1),
-    twoColor(2),
-    threeColor(3);
+public enum Families {
+    Kitsune(0),
+    Kappa(1),
+    Rokurokubi(2),
+    Oni(3);
 
     private int value;
     private static Map map = new HashMap<>();
 
-    private NumberHintCard(int value) {
+    private Families(int value) {
         this.value = value;
     }
 
     static {
-        for (NumberHintCard pageType : NumberHintCard.values()) {
+        for (Families pageType : Families.values()) {
             map.put(pageType.value, pageType);
         }
     }
 
-    public static NumberHintCard valueOf(int pageType) {
-        return (NumberHintCard) map.get(pageType);
+    public static Families valueOf(int pageType) {
+        return (Families) map.get(pageType);
     }
 
     public int getValue() {

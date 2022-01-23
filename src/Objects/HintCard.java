@@ -1,3 +1,7 @@
+package Objects;
+
+import Objects.Families;
+
 public class HintCard {
     private final NumberHintCard numberOfFamilies;
 

@@ -1,13 +1,17 @@
+package Interface;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import global.Game;
 
 public class GameInterface extends JFrame{
 
     static JFrame fenetre;
-   // public static Scene scene;                                       //panneau nouvelle variable, classe Scene
+   // public static Interface.Scene scene;                                       //panneau nouvelle variable, classe Interface.Scene
     Game ga;
     JPanelWithBackground panel;
     JPanelWithBackground dosIndice;
@@ -51,15 +55,41 @@ public class GameInterface extends JFrame{
             table.getModel().setValueAt(i,i,0);
         }
 
-
+        try {
+            table.getModel().setValueAt(new ImageIcon("./src/Image/img.png"),3,3);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         JLabel text = new JLabel();
         text.setText("coucou");
 
-        fenetre.add(panel);
+        JPanel borderPanel = new JPanel();
+        borderPanel.setLayout(new BorderLayout());
 
-        panel.add(text);
-        panel.add(table);
+        fenetre.add(borderPanel);
+
+        borderPanel.add(panel, BorderLayout.CENTER);
+        borderPanel.add(text, BorderLayout.NORTH);
+
+        //panel.add(text);
+
+        GridLayout gridLayout = new GridLayout(3,3,1,1);
+        panel.setLayout(gridLayout);
+
+        for (int i=0; i<3*3; i++){
+            JLabel j1 = new JLabel();
+            panel.add(j1);
+            System.out.println(j1.getWidth());
+            j1.setIcon(new ImageIcon("./src/Image/img_1.png"));
+            j1.setHorizontalAlignment(JLabel.CENTER);
+            j1.setVerticalAlignment(JLabel.CENTER);
+            System.out.println(j1.getWidth());
+
+        }
+        panel.setPreferredSize(new Dimension(100,100));
+
+        //panel.add(table);
 
         fenetre.setVisible(true);                                   //fenetre visible
 
@@ -82,5 +112,4 @@ public class GameInterface extends JFrame{
 
     }
 
-
-}
+};
