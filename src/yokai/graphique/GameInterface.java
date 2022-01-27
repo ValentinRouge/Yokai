@@ -2,15 +2,21 @@ package yokai.graphique;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
 
 import yokai.global.Game;
 import yokai.objects.Board;
+import yokai.objects.HintCard;
 
 public class GameInterface extends JFrame{
 
     static JFrame fenetre;
    // public static Interface.Scene scene;                                       //panneau nouvelle variable, classe Interface.Scene
     Game ga;
+    Board board;
     JPanelWithBackground topPanel;
     JPanelWithBackground gridPanel;
     JPanelWithBackground borderPanel;
@@ -18,6 +24,8 @@ public class GameInterface extends JFrame{
     int maxHeightBoard;
     int minWidthBoard;
     int mawWidthBoard;
+    GridBagConstraints gridBagConstraints;
+    GridBagLayout gridLayout;
 
 
     // CA private ImageIcon icoDosIndice;//stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
@@ -66,8 +74,8 @@ public class GameInterface extends JFrame{
         int width = mawWidthBoard-minWidthBoard+1;
 
         gridPanel.removeAll();
-        GridBagLayout gridLayout = new GridBagLayout();
-        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridLayout = new GridBagLayout();
+        gridBagConstraints = new GridBagConstraints();
         gridPanel.setLayout(gridLayout);
 
         gridBagConstraints.weightx = width;
@@ -92,16 +100,20 @@ public class GameInterface extends JFrame{
                 gridBagConstraints.gridx = i;
                 gridPanel.add(j1,gridBagConstraints);
                 if (i%height==0){
-                    j1.setText(String.valueOf(minHeightBoard+Math.round(i/width)+2));
+                    j1.setText(String.valueOf(minHeightBoard+l+1));
                     j1.setForeground(Color.white);
                 } else {
-                    j1.setIcon(new ImageIcon("./src/Image/img_1.png"));
+                    if (board.board[l+minHeightBoard][i+minWidthBoard].getYokaiCard()!= null){
+                        j1.setIcon(new ImageIcon("./src/Image/dos_carte.jpg"));
+                    } else {
+                        j1.setText(" ");
+                    }
                 }
                 j1.setHorizontalAlignment(JLabel.CENTER);
                 j1.setVerticalAlignment(JLabel.CENTER);
             }
         }
-
+        fenetre.setVisible(true);
     }
 
     private void determineBoardDimension(){
@@ -109,7 +121,7 @@ public class GameInterface extends JFrame{
         maxHeightBoard=0;
         minWidthBoard=0;
         mawWidthBoard=0;
-        Board board = ga.getBoard();
+        board = ga.getBoard();
 
         for (int i=0; i<16; i++){
             boolean hasCard = false;
@@ -136,6 +148,281 @@ public class GameInterface extends JFrame{
         }
     } //private void determineBoardDimension(){
 
+    public void changePlayer(String playerName){
+        displayBoard();
+        topPanel.removeAll();
+
+        JLabel explainLabel = new JLabel();
+        explainLabel.setForeground(Color.white);
+        explainLabel.setText("C'est au tour de " + playerName + ". Soit sûr que personne ne te regarde jouer");
+        topPanel.add(explainLabel);
+
+        JButton okButton = new JButton();
+        okButton.setText("Valider");
+        topPanel.add(okButton);
+
+        fenetre.setVisible(true);
+
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                askDisplayCard(" ");
+
+            }
+        });
+    }
+
+    public void askDisplayCard(String errorText){
+        topPanel.removeAll();
+
+        JLabel explainLabel = new JLabel();
+        explainLabel.setForeground(Color.white);
+        explainLabel.setText("Quelles cartes veux tu regarder ? (Format : G7&J8) ");
+        topPanel.add(explainLabel);
+
+        JTextField choiceTextField = new JTextField("",6);
+        topPanel.add(choiceTextField);
+
+        JButton okButton = new JButton();
+        okButton.setText("Valider");
+        topPanel.add(okButton);
+
+        JLabel errorLabel = new JLabel();
+        errorLabel.setForeground(Color.white);
+        errorLabel.setText(errorText);
+        topPanel.add(errorLabel);
+
+        fenetre.setVisible(true);
+
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ga.tryDisplayCard(choiceTextField.getText());
+            }
+        });
+    } //public void askDisplayCard(String errorText){
+
+    public void displayCard(String[] cardToDisplay) {
+        determineBoardDimension();
+
+        int height = maxHeightBoard - minHeightBoard + 1;
+        int width = mawWidthBoard - minWidthBoard + 1;
+
+        gridPanel.removeAll();
+        gridLayout = new GridBagLayout();
+        gridBagConstraints = new GridBagConstraints();
+        gridPanel.setLayout(gridLayout);
+
+        gridBagConstraints.weightx = width;
+        gridBagConstraints.weighty = height;
+
+        String[] Alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "O", "P", "Q"};
+        for (int i = 1; i < width; i++) {
+            JLabel j1 = new JLabel();
+            j1.setForeground(Color.white);
+            gridBagConstraints.gridy = 0;
+            gridBagConstraints.gridx = i;
+            gridPanel.add(j1, gridBagConstraints);
+            j1.setText(Alphabet[minWidthBoard + i]);
+            j1.setHorizontalAlignment(JLabel.CENTER);
+            j1.setVerticalAlignment(JLabel.CENTER);
+        }
+
+        for (int l = 1; l < height; l++) {
+            for (int i = 0; i < width; i++) {
+                JLabel j1 = new JLabel();
+                gridBagConstraints.gridy = l;
+                gridBagConstraints.gridx = i;
+                gridPanel.add(j1, gridBagConstraints);
+                if (i % height == 0) {
+                    j1.setText(String.valueOf(minHeightBoard + l + 1));
+                    j1.setForeground(Color.white);
+                } else {
+                    if (board.board[l + minHeightBoard][i + minWidthBoard].getYokaiCard() != null) {
+                        if (((l + minHeightBoard) == Integer.parseInt(cardToDisplay[1]) && (i + minWidthBoard) == Integer.parseInt(cardToDisplay[2]))) {
+                            switch (Integer.parseInt(cardToDisplay[3])){
+                                case 0:
+                                    j1.setIcon(new ImageIcon("./src/Image/carte_rouge.jpg"));
+                                    break;
+
+                                case 1:
+                                    j1.setIcon(new ImageIcon("./src/Image/carte_verte.jpg"));
+                                    break;
+
+                                case 2:
+                                    j1.setIcon(new ImageIcon("./src/Image/carte_violette.jpg"));
+                                    break;
+
+                                case 3:
+                                    j1.setIcon(new ImageIcon("./src/Image/carte_bleue.jpg"));
+                                    break;
+                            }
+                        } else if (((l + minHeightBoard) == Integer.parseInt(cardToDisplay[4]) && (i + minWidthBoard) == Integer.parseInt(cardToDisplay[5]))){
+                            switch (Integer.parseInt(cardToDisplay[6])){
+                                case 0:
+                                    j1.setIcon(new ImageIcon("./src/Image/carte_rouge.jpg"));
+                                    break;
+
+                                case 1:
+                                    j1.setIcon(new ImageIcon("./src/Image/carte_verte.jpg"));
+                                    break;
+
+                                case 2:
+                                    j1.setIcon(new ImageIcon("./src/Image/carte_violette.jpg"));
+                                    break;
+
+                                case 3:
+                                    j1.setIcon(new ImageIcon("./src/Image/carte_bleue.jpg"));
+                                    break;
+                            }
+                        } else {
+                            j1.setIcon(new ImageIcon("./src/Image/dos_carte.jpg"));
+
+                        }
+                    } else {
+                        j1.setText(" ");
+                    }
+                }
+                j1.setHorizontalAlignment(JLabel.CENTER);
+                j1.setVerticalAlignment(JLabel.CENTER);
+            }
+        }
+        fenetre.setVisible(true);
+        ga.goToHints();
+    }
+
+    public void displayHints(ArrayList<HintCard> listOfHints, String additionalText, Integer numberOfFunctionToExecute){
+        topPanel.removeAll();
+
+        String text = additionalText;
+
+        int i = 0;
+        for (HintCard card : listOfHints){
+            i+=1;
+            switch (card.getNumberOfFamilies().getValue()){
+                case 1 -> {
+                    text = text + "("+i+") Une carte indice une famille : " + card.getFamily1();
+                    break;
+                }
+                case 2 -> {
+                    text = text + "("+i+") Une carte indice deux familles : " + card.getFamily1() + " et " + card.getFamily2();
+                    break;
+                }
+                case  3 -> {
+                    text = text + "("+i+") Une carte indice trois familles : " + card.getFamily1() + ", " + card.getFamily2()+" et "+card.getFamily3();
+                    break;
+                }
+            }
+        }
+
+        JLabel explainLabel = new JLabel();
+        explainLabel.setForeground(Color.white);
+        explainLabel.setText(text);
+        topPanel.add(explainLabel);
+
+        JTextField textField= new JTextField("",5);
+        if (numberOfFunctionToExecute == 2){
+            topPanel.add(textField);
+        }
+
+        JButton okButton = new JButton();
+        okButton.setText("Valider");
+        topPanel.add(okButton);
+
+        fenetre.setVisible(true);
+
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                switch (numberOfFunctionToExecute){
+                    case 1:
+                        makeAMove(" ");
+                        break;
+                    case 2:
+                        ga.useAHint(textField.getText());
+                }
 
 
+            }
+        });
+    }
+
+    public void pickOrUse(){
+        displayBoard();
+        topPanel.removeAll();
+
+        JLabel explainLabel = new JLabel();
+        explainLabel.setForeground(Color.white);
+        explainLabel.setText("Voulez vous piocher (1) ou déposer un indice (2)");
+        topPanel.add(explainLabel);
+
+        JButton okButton = new JButton();
+        okButton.setText("Valider");
+        topPanel.add(okButton);
+
+        fenetre.setVisible(true);
+
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (1 == Integer.parseInt(okButton.getText())){
+                        ga.pick();
+                        displayHints(ga.getListOfHintCardAvailable(), "Voilà les indices que vous avez retournés : ", 1);
+                    } else if (2 == Integer.parseInt(okButton.getText())){
+                        displayHints(ga.getListOfHintCardAvailable(), "Quel indice voulez vous utiliser ? Où voulez vous le placer ? (Format : 1->G7) ", 2);
+                    } else {
+                        JLabel errorLabel = new JLabel();
+                        errorLabel.setForeground(Color.white);
+                        errorLabel.setText("Veuillez rentrer une valeur correcte (1 ou 2)");
+                        topPanel.add(errorLabel);
+
+                        fenetre.setVisible(true);
+                    }
+
+                } catch (Exception ez){
+                    System.out.println(ez);
+                    JLabel errorLabel = new JLabel();
+                    errorLabel.setForeground(Color.white);
+                    errorLabel.setText("Veuillez rentrer une valeur correcte (1 ou 2)");
+                    topPanel.add(errorLabel);
+
+                    fenetre.setVisible(true);
+                }
+
+
+            }
+        });
+    }
+
+    public void makeAMove(String errorText){
+        topPanel.removeAll();
+
+        JLabel explainLabel = new JLabel();
+        explainLabel.setForeground(Color.white);
+        explainLabel.setText("Quel deplacement veut tu faire ? (Format : G7->G6) ");
+        topPanel.add(explainLabel);
+
+        JTextField choiceTextField = new JTextField("",6);
+        topPanel.add(choiceTextField);
+
+        JButton okButton = new JButton();
+        okButton.setText("Valider");
+        topPanel.add(okButton);
+
+        JLabel errorLabel = new JLabel();
+        errorLabel.setForeground(Color.white);
+        errorLabel.setText(errorText);
+        topPanel.add(errorLabel);
+
+        fenetre.setVisible(true);
+
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ga.tryDisplayCard(choiceTextField.getText());
+            }
+        });
+    }
 };

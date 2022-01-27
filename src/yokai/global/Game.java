@@ -22,11 +22,17 @@ import java.util.Random;
 public class Game {
     private ArrayList<HintCard> listOfHintCardHidden = new ArrayList<>();
     private ArrayList<HintCard> listOfHintCardAvailable = new ArrayList<>();
-    public ArrayList<Player> players = new ArrayList<>();
+    public ArrayList<Player> players = new ArrayList<>(); //pour la récupération depuis l'interface
     private boolean gameInAction;
     private Board board;
     Scanner scanner = new Scanner(System.in);
     PlayerInterface playerInterface;
+    GameInterface gameInterface;
+    int playerNumber;
+
+    public ArrayList<HintCard> getListOfHintCardAvailable() {
+        return listOfHintCardAvailable;
+    }
 
     public Board getBoard() {
         return board;
@@ -39,30 +45,13 @@ public class Game {
     }
 
     public void continueGame(){
-        System.out.println(players.get(0).getName());
-        System.out.println(players.get(1).getName());
         CreateHints();
         board = new Board();
-        GameInterface gameInterface = new GameInterface(this);
+        gameInterface = new GameInterface(this);
 
-        int playerNumber = -1;
-        gameInAction=false;
-        while (gameInAction){
-            playerNumber+=1;
-            if (playerNumber>players.size()-1){
-                playerNumber=0;
-            }
-            playATurn(players.get(playerNumber));
-        }
+        playerNumber = -1;
+        beginATurn();
     } //public void BeginGame()
-
-
-    private void CreatePlayers(ArrayList<String> names){
-        for(int i=0;i<2;i++){ //on créer deux utilisateurs
-            players.add(new Player(names.get(i)));
-        }
-    } //private void CreatePlayers()
-
 
 
     // CREATION DE LA PIOCHE
@@ -122,126 +111,64 @@ public class Game {
 
 
     // FONCTION QUI JOUE UN TOUR
-
-
-    private void playATurn(Player player){
-        System.out.println("C'est au tour de " + player.getName()); //TODO : IG
-        System.out.println("Soit sûr que personne ne te regarde jouer");//TODO : IG
-        board.displayBoard(); //TODO : IG
-        boolean done = false; // on créé une boucle sur le try catch pour le recommencer tant que l'on a pas réussit
-        while (!done){
-            try {
-                System.out.println("Quelles cartes veux tu regarder ?");
-                System.out.println("Format : A4&B5 : A la colonne, 4 la ligne");
-                String valueToWatch = scanner.next();
-                System.out.println(valueToWatch);
-                done = board.seeCard(valueToWatch);
-            } catch (Exception e){
-                System.out.println("Oups, quelque chose n'a pas marché, ressaie d'entrer les valeurs");
-                System.out.println(e);
-            }
+    private void beginATurn(){
+        playerNumber+=1;
+        if (playerNumber>players.size()-1){
+            playerNumber=0;
         }
-        if (listOfHintCardAvailable.size()==0){
-            System.out.println("Il n'y a pas de carte déjà pioché, vous aller piocher automatiquement.");
-            pick();
-            displayHintsAvalailable();
+        gameInterface.changePlayer(players.get(playerNumber).getName());
+    }
+
+    public void tryDisplayCard(String cardToDisplay){
+        String[] result = board.seeCard(cardToDisplay).split("-");
+
+        if (result[0].equals("OK")){
+            gameInterface.displayCard(result);
         } else {
-            pickOrUse();
+            gameInterface.askDisplayCard("Le format de carte demandé n'est pas correct :/");
         }
-        makeAMove();
-        board.displayBoard();
-    } //private void playATurn(Objects.Player player);
+    }
 
-    private void pick(){
+    public void goToHints(){
+        if (listOfHintCardAvailable.size()==0){
+            pick();
+            gameInterface.displayHints(listOfHintCardAvailable, "Il n'y a pas de carte déjà pioché, vous aller piocher automatiquement. Voilà les carte indices retournées : ", 1);
+        } else {
+            gameInterface.pickOrUse();
+        }
+    }
+
+
+    public void pick(){
         listOfHintCardAvailable.add(listOfHintCardHidden.get(0)); //Piocher
         listOfHintCardHidden.remove(0); //supprimer
     }
 
-    private void displayHintsAvalailable(){
-        int i = 0;
-        for (HintCard card : listOfHintCardAvailable){
-            i+=1;
-            switch (card.getNumberOfFamilies().getValue()){
-                case 1 -> {
-                    System.out.println("("+i+") Une carte indice une famille : " + card.getFamily1());
-                    break;
-                }
-                case 2 -> {
-                    System.out.println("("+i+") Une carte indice deux famille : " + card.getFamily1() + " et " + card.getFamily2());
-                    break;
-                }
-                case  3 -> {
-                    System.out.println("("+i+") Une carte indice deux famille : " + card.getFamily1() + ", " + card.getFamily2()+" et "+card.getFamily3());
-                    break;
-                }
+    public void useAHint(String value){
+        try {
+            String[] splied = value.split("->");
+            Integer hintCardNumber = Integer.parseInt(splied[1]);
+            if (hintCardNumber>0 && hintCardNumber<= listOfHintCardAvailable.size()){
+                board.placeHint(listOfHintCardAvailable.get(hintCardNumber - 1), splied[1]);
+                listOfHintCardAvailable.remove(hintCardNumber-1);
+                gameInterface.makeAMove(" ");
+            } else {
+                gameInterface.displayHints(listOfHintCardAvailable, "Quelque chose n'a pas marché, vérifiez le format de votre réponse. Quel indice voulez vous utiliser ? Où voulez vous le placer ? (Format : 1->G7) ", 2);
             }
+        } catch (Exception e){
+            gameInterface.displayHints(listOfHintCardAvailable, "Quelque chose n'a pas marché, vérifiez le format de votre réponse. Quel indice voulez vous utiliser ? Où voulez vous le placer ? (Format : 1->G7) ", 2);
         }
     }
 
-    private void pickOrUse(){
-        System.out.println("Voulez vous piocher (1) ou déposer un indice (2)");
-        //on récupère la valeur 1 ou deux pour savoir ce que l'on fait, avec une boucle while pour être sur que l'on le fait
+    public void makeAMove(String valueToWatch){
         boolean done = false;
-        int choice=0; //on met le 0 juste pour l'initialisation
-        while (!done){
             try {
-                choice = scanner.nextInt();
-                if (choice==1 || choice==2){
-                    done = true;
-                }
-            } catch (Exception e){
-                System.out.println("Oups, quelque chose n'a pas marché, ressaie d'entrer les valeurs");
-                System.out.println(e);
-            }
-        }
-        if (choice == 1){
-            pick();
-            System.out.println("Vos nouvelles cartes disponibles : ");
-            displayHintsAvalailable();
-        } else {
-            System.out.println("Vos cartes disponibles : ");
-            displayHintsAvalailable();
-            System.out.println("Laquelle voulez vous utiliser ?");
-            done=false;
-            int hintCardNumber = 0;//on initialise le numéro de la carte
-            while (!done){
-                System.out.println("Veuillez saisir le numéro de l'indice que vous voulez utiliser");
-                hintCardNumber = scanner.nextInt();
-                if (hintCardNumber>0 && hintCardNumber<=listOfHintCardAvailable.size()){
-                    done=true;
-                }
-            }
-            //placement de la carte indice
-            done = false;
-            while (!done) {
-                try {
-                    System.out.println("Ou voulez vous placer cet indice ?");
-                    System.out.println("Format : A4&B5 : A la colonne, 4 la ligne");
-                    String valueToWatch = scanner.next();
-                    done = board.placeHint(listOfHintCardAvailable.get(hintCardNumber - 1), valueToWatch); //en fonction de si cela marche on assigne done à true ou false
-                } catch (Exception e) {
-                    System.out.println("Oups, quelque chose n'a pas marché, ressaie d'entrer les valeurs");
-                    System.out.println(e);
-                }
-            } //while (!done) {
-            listOfHintCardAvailable.remove(hintCardNumber-1);
-        } //if (choice==1) ici le else
-    } //private void pickOrUse(){
-
-    private void makeAMove(){
-        boolean done = false;
-        while (!done){
-            try {
-                System.out.println("Quel déplacement voulez vous réaliser ?");
-                System.out.println("Format : A4->B5 : A la colonne, 4 la ligne");
-                String valueToWatch = scanner.next();
-                System.out.println(valueToWatch);
                 done = board.makeAMove(valueToWatch);
+                //TODO ici après changement
             } catch (Exception e){
-                System.out.println("Oups, quelque chose n'a pas marché, ressaie d'entrer les valeurs");
                 System.out.println(e);
+                gameInterface.makeAMove("Oups, quelque chose n'a pas marché, ressaie d'entrer les valeurs");
             }
-        }
     } //private void makeAMove(){
 
     private void playSound(){

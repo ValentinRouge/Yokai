@@ -45,7 +45,7 @@ public class Board {
         }
     } //public void displayBoard(){
 
-    public boolean seeCard(String stringToSee){
+    public String seeCard(String stringToSee){
         try {
             String[] stringToSeeSplited = stringToSee.split("&");
             int col1 = stringToSeeSplited[0].charAt(0) - 'A'; //manière pour récupérer l'index de la 1ère lettre
@@ -53,12 +53,14 @@ public class Board {
             int l1 = Integer.parseInt(stringToSeeSplited[0].substring(1))-1; //on récupère le nombre ensuite
             int l2 = Integer.parseInt(stringToSeeSplited[1].substring(1))-1;
 
-            System.out.println("La première carte est : " + board[l1][col1].getYokaiCard().getFamily());
-            System.out.println("La seconde carte est : " + board[l2][col2].getYokaiCard().getFamily());
-            return true;
+            if (board[l1][col1].getYokaiCard() == null || board[l2][col2].getYokaiCard() == null){
+                return "KO-NOCARD";
+            } else {
+                return "OK-"+l1+"-"+col1+"-"+board[l1][col1].getYokaiCard().getFamily().getValue()+"-"+l2+"-"+col2+"-"+board[l2][col2].getYokaiCard().getFamily().getValue();
+            }
         } catch (Exception e) {
             System.out.println(e);
-            return false;
+            return "KO-KO";
         }
     } //public boolean seeCard(String stringToSee)
 
