@@ -357,6 +357,9 @@ public class GameInterface extends JFrame{
         explainLabel.setText("Voulez vous piocher (1) ou déposer un indice (2)");
         topPanel.add(explainLabel);
 
+        JTextField textField = new JTextField("", 5);
+        topPanel.add(textField);
+
         JButton okButton = new JButton();
         okButton.setText("Valider");
         topPanel.add(okButton);
@@ -367,10 +370,10 @@ public class GameInterface extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (1 == Integer.parseInt(okButton.getText())){
+                    if (1 == Integer.parseInt(textField.getText())){
                         ga.pick();
                         displayHints(ga.getListOfHintCardAvailable(), "Voilà les indices que vous avez retournés : ", 1);
-                    } else if (2 == Integer.parseInt(okButton.getText())){
+                    } else if (2 == Integer.parseInt(textField.getText())){
                         displayHints(ga.getListOfHintCardAvailable(), "Quel indice voulez vous utiliser ? Où voulez vous le placer ? (Format : 1->G7) ", 2);
                     } else {
                         JLabel errorLabel = new JLabel();
