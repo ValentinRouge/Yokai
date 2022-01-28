@@ -36,8 +36,6 @@ public class GameInterface extends JFrame{
         this.ga = ga;
         fenetre = this;// on instencie la variable fenetre et on lui donne un nom, elle a pas encore d'existence physique
 
-
-
         fenetre.setTitle("Jeu du YOKAI");
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);     //fermer le programme en meme temps que la fenetre
         fenetre.setSize(1000,700);                     //dimensions de la fenetre
@@ -73,6 +71,7 @@ public class GameInterface extends JFrame{
 
         int height = maxHeightBoard-minHeightBoard+1;
         int width = mawWidthBoard-minWidthBoard+1;
+        System.out.println(width);
 
         gridPanel.removeAll();
         gridLayout = new GridBagLayout();
@@ -100,7 +99,7 @@ public class GameInterface extends JFrame{
                 gridBagConstraints.gridy = l;
                 gridBagConstraints.gridx = i;
                 gridPanel.add(j1,gridBagConstraints);
-                if (i%height==0){
+                if (i==0){
                     j1.setText(String.valueOf(minHeightBoard+l+1));
                     j1.setForeground(Color.white);
                 } else {
@@ -149,10 +148,6 @@ public class GameInterface extends JFrame{
                 minWidthBoard = i;
             }
         }
-        System.out.println(minHeightBoard);
-        System.out.println(maxHeightBoard);
-        System.out.println(minWidthBoard);
-        System.out.println(mawWidthBoard);
     } //private void determineBoardDimension(){
 
     public void changePlayer(String playerName){
@@ -305,6 +300,7 @@ public class GameInterface extends JFrame{
                 }
                 j1.setHorizontalAlignment(JLabel.CENTER);
                 j1.setVerticalAlignment(JLabel.CENTER);
+                gridPanel.setComponentZOrder(j1,1);
             }
         }
         fenetre.setVisible(true);
