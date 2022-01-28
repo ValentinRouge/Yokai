@@ -164,7 +164,7 @@ public class Game {
         boolean done = false;
             try {
                 done = board.makeAMove(valueToWatch);
-                //TODO ici après changement
+                beginATurn();
             } catch (Exception e){
                 System.out.println(e);
                 gameInterface.makeAMove("Oups, quelque chose n'a pas marché, ressaie d'entrer les valeurs");

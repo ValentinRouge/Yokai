@@ -146,6 +146,10 @@ public class GameInterface extends JFrame{
                 minWidthBoard = i;
             }
         }
+        System.out.println(minHeightBoard);
+        System.out.println(maxHeightBoard);
+        System.out.println(minWidthBoard);
+        System.out.println(mawWidthBoard);
     } //private void determineBoardDimension(){
 
     public void changePlayer(String playerName){
@@ -424,7 +428,7 @@ public class GameInterface extends JFrame{
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ga.tryDisplayCard(choiceTextField.getText());
+                ga.makeAMove(choiceTextField.getText());
             }
         });
     }
