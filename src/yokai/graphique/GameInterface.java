@@ -62,6 +62,7 @@ public class GameInterface extends JFrame{
         topPanel.add(text);
 
         fenetre.setVisible(true);                                   //fenetre visible
+        fenetre.repaint();
 
 
         displayBoard();
@@ -114,6 +115,8 @@ public class GameInterface extends JFrame{
             }
         }
         fenetre.setVisible(true);
+        fenetre.repaint();
+
     }
 
     private void determineBoardDimension(){
@@ -166,6 +169,7 @@ public class GameInterface extends JFrame{
         topPanel.add(okButton);
 
         fenetre.setVisible(true);
+        fenetre.repaint();
 
         okButton.addActionListener(new ActionListener() {
             @Override
@@ -197,6 +201,7 @@ public class GameInterface extends JFrame{
         topPanel.add(errorLabel);
 
         fenetre.setVisible(true);
+        fenetre.repaint();
 
         okButton.addActionListener(new ActionListener() {
             @Override
@@ -292,6 +297,8 @@ public class GameInterface extends JFrame{
             }
         }
         fenetre.setVisible(true);
+        fenetre.repaint();
+
         ga.goToHints();
     }
 
@@ -334,6 +341,7 @@ public class GameInterface extends JFrame{
         topPanel.add(okButton);
 
         fenetre.setVisible(true);
+        fenetre.repaint();
 
         okButton.addActionListener(new ActionListener() {
             @Override
@@ -369,6 +377,7 @@ public class GameInterface extends JFrame{
         topPanel.add(okButton);
 
         fenetre.setVisible(true);
+        fenetre.repaint();
 
         okButton.addActionListener(new ActionListener() {
             @Override
@@ -386,6 +395,8 @@ public class GameInterface extends JFrame{
                         topPanel.add(errorLabel);
 
                         fenetre.setVisible(true);
+                        fenetre.repaint();
+
                     }
 
                 } catch (Exception ez){
@@ -396,6 +407,8 @@ public class GameInterface extends JFrame{
                     topPanel.add(errorLabel);
 
                     fenetre.setVisible(true);
+                    fenetre.repaint();
+
                 }
 
 
@@ -423,7 +436,9 @@ public class GameInterface extends JFrame{
         errorLabel.setText(errorText);
         topPanel.add(errorLabel);
 
+        //fenetre.repaint();
         fenetre.setVisible(true);
+        fenetre.repaint();
 
         okButton.addActionListener(new ActionListener() {
             @Override
