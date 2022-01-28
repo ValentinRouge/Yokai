@@ -259,18 +259,22 @@ public class GameInterface extends JFrame{
                             switch (Integer.parseInt(cardToDisplay[3])){
                                 case 0:
                                     j1.setIcon(new ImageIcon("./src/Image/carte_rouge.jpg"));
+                                    System.out.println("ici");
                                     break;
 
                                 case 1:
                                     j1.setIcon(new ImageIcon("./src/Image/carte_verte.jpg"));
+                                    System.out.println("ici");
                                     break;
 
                                 case 2:
                                     j1.setIcon(new ImageIcon("./src/Image/carte_violette.jpg"));
+                                    System.out.println("ici");
                                     break;
 
                                 case 3:
                                     j1.setIcon(new ImageIcon("./src/Image/carte_bleue.jpg"));
+                                    System.out.println("ici");
                                     break;
                             }
                         } else if (((l + minHeightBoard) == Integer.parseInt(cardToDisplay[4]) && (i + minWidthBoard) == Integer.parseInt(cardToDisplay[5]))){
@@ -453,5 +457,36 @@ public class GameInterface extends JFrame{
                 ga.makeAMove(choiceTextField.getText());
             }
         });
+    }
+
+    public void appeasedYokai(){
+        displayBoard();
+        topPanel.removeAll();
+
+        JButton endButton = new JButton();
+        endButton.setText("Les Yokais sont appaisés");
+        topPanel.add(endButton);
+
+        JButton continueButton = new JButton();
+        continueButton.setText("Continer à jouer");
+        topPanel.add(continueButton);
+
+        //fenetre.repaint();
+        fenetre.setVisible(true);
+        fenetre.repaint();
+
+        endButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        continueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ga.beginATurn();
+            }
+        });
+
     }
 };

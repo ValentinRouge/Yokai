@@ -111,7 +111,7 @@ public class Game {
 
 
     // FONCTION QUI JOUE UN TOUR
-    private void beginATurn(){
+    public void beginATurn(){
         playerNumber+=1;
         if (playerNumber>players.size()-1){
             playerNumber=0;
@@ -164,7 +164,7 @@ public class Game {
         boolean done = false;
             try {
                 done = board.makeAMove(valueToWatch);
-                beginATurn();
+                gameInterface.appeasedYokai();
             } catch (Exception e){
                 System.out.println(e);
                 gameInterface.makeAMove("Oups, quelque chose n'a pas marché, ressaie d'entrer les valeurs");
