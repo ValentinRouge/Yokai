@@ -30,17 +30,29 @@ public class PlayerInterface extends JFrame{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        final JTextField name1Field = new JTextField("", 10);
-        final JTextField name2Field = new JTextField("", 10);
+        final JTextField name1Field = new JTextField("", 20);
+        final JTextField name2Field = new JTextField("", 20);
 
         //on créer les éléments de la fenêtre
         final JLabel titleLabel = new JLabel("Bienvenue au jeu de Yokai");
-        Font titleFont = titleLabel.getFont().deriveFont(Font.BOLD,20);
+        Font titleFont = titleLabel.getFont().deriveFont(Font.BOLD,60);
         titleLabel.setFont(titleFont);
         titleLabel.setForeground(Color.white);
 
         final JLabel dscLabel = new JLabel("<html>Ce jeu vous est proposé par le groupe composé de : Chloé Pezzoni, Victor Genin et Valentin Rouge <br/><br/>Ce projet a été réalisé dans le cadre du cours de Java au sein de l'ISEP.<br/>Nous espérons que vous prendrez plaisir à jouer :).<br/></html>");
+        Font dscFont = dscLabel.getFont().deriveFont(Font.BOLD,15);
+        dscLabel.setFont(dscFont);
         dscLabel.setForeground(Color.white);
+
+
+        final JLabel space1Label = new JLabel("   ");
+        final JLabel space2Label = new JLabel("   ");
+        final JLabel space3Label = new JLabel("   ");
+        final JLabel space4Label = new JLabel("   ");
+        final JLabel space5Label = new JLabel("   ");
+        final JLabel space6Label = new JLabel("   ");
+
+
 
         final JLabel name1Label = new JLabel();
         final JLabel name2Label = new JLabel();
@@ -62,11 +74,17 @@ public class PlayerInterface extends JFrame{
 
         //on ajoute tous les éléments dans la panel
         panel.add(titleLabel, gbc);
+        panel.add(space4Label, gbc);
+        panel.add(space1Label, gbc);
         panel.add(dscLabel, gbc);
+        panel.add(space2Label, gbc);
         panel.add(name1Label);
+        panel.add(space3Label, gbc);
         panel.add(name1Field, gbc);
         panel.add(name2Label);
+        panel.add(space5Label, gbc);
         panel.add(name2Field, gbc);
+        panel.add(space6Label, gbc);
         panel.add(nameButton, gbc);
 
         // caracteristiques de la fenetre :

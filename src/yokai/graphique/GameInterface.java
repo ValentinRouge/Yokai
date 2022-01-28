@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.w3c.dom.Text;
 import yokai.global.Game;
 import yokai.objects.Board;
 import yokai.objects.HintCard;
@@ -28,17 +29,18 @@ public class GameInterface extends JFrame{
     GridBagLayout gridLayout;
 
 
-    // CA private ImageIcon icoDosIndice;//stock l'image du fond d'ecran, type imageIcon et le nom IcoB...
-    //CA private Image imgDosIndice;
+
 
     public GameInterface (Game ga){
         super();
         this.ga = ga;
-        fenetre = this;                      // on instencie la variable fenetre et on lui donne un nom, elle a pas encore d'existence physique
+        fenetre = this;// on instencie la variable fenetre et on lui donne un nom, elle a pas encore d'existence physique
+
+
 
         fenetre.setTitle("Jeu du YOKAI");
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);     //fermer le programme en meme temps que la fenetre
-        fenetre.setSize(1000,700);                     //dimensions de la fenetre 300 425
+        fenetre.setSize(1000,700);                     //dimensions de la fenetre
         fenetre.setLocationRelativeTo(null);                        // on centralise la fenetre
         fenetre.setResizable(true);                                //interdir de redimessionner la fenetre
         fenetre.setAlwaysOnTop(false);//fenetrenetre toujours au dessus des autres
@@ -57,9 +59,7 @@ public class GameInterface extends JFrame{
         borderPanel.add(gridPanel, BorderLayout.CENTER);
         borderPanel.add(topPanel, BorderLayout.NORTH);
 
-        JLabel text = new JLabel();
-        text.setText("coucou");
-        topPanel.add(text);
+
 
         fenetre.setVisible(true);                                   //fenetre visible
         fenetre.repaint();
@@ -159,6 +159,13 @@ public class GameInterface extends JFrame{
         displayBoard();
         topPanel.removeAll();
 
+        JLabel label = new JLabel("Bienvenue dans cette aventure !");
+        label.setFont(new Font("Serif", Font.BOLD, 20));
+        label.setForeground(Color.RED);
+        label.setBackground(Color.WHITE);
+        label.setOpaque(true);
+        topPanel.add(label);
+
         JLabel explainLabel = new JLabel();
         explainLabel.setForeground(Color.white);
         explainLabel.setText("C'est au tour de " + playerName + ". Soit sûr que personne ne te regarde jouer");
@@ -204,7 +211,7 @@ public class GameInterface extends JFrame{
         fenetre.repaint();
 
         okButton.addActionListener(new ActionListener() {
-            @Override
+
             public void actionPerformed(ActionEvent e) {
                 ga.tryDisplayCard(choiceTextField.getText());
             }
